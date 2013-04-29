@@ -6,12 +6,13 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.ServerSocket;
 
 import javax.swing.JScrollPane;
 
 
-public class Server extends ChatAdapter{
+public class Server extends ChatAdapter implements Serializable{
 	
 	private static final long serialVersionUID = 9208182619020493694L;
 
@@ -78,7 +79,7 @@ public class Server extends ChatAdapter{
 
 		input = new ObjectInputStream(connection.getInputStream());
 
-		enviarMensagem("\nGot I/O streams\n");
+		enviarMensagem(getMessageFromBundle("conexaoValidada"));
 	} 
 }
 

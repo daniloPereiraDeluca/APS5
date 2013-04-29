@@ -6,6 +6,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Date;
@@ -13,11 +14,11 @@ import java.util.Date;
 import javax.swing.JScrollPane;
 
 
-public class Client extends ChatAdapter {
+public class Client extends ChatAdapter implements Serializable{
 	
 	private static final long serialVersionUID = 9159486593659897373L;
 	
-	private String chatServer; // host server for this application
+	private String chatServer;
 
 	public Client(String host, Usuario user) {
 		super("ClienteSide", user);
@@ -55,19 +56,19 @@ public class Client extends ChatAdapter {
 			verificaConexao(); 
 		} 
 		catch (EOFException eofException) {
-			enviarMensagem("\nClient terminated connection");
+			enviarMensagem(getMessageFromBundle("sessaoTerminada"));
 		}
 		catch (IOException ioException) {
-			enviarMensagem(FALHA_CONEXAO);
+			enviarMensagem(getMessageFromBundle("falhaConexao"));
 		} finally {
 			closeConnection(); 
 		} 
 	} 
 
 	private void connectToServer() throws IOException {
-		enviarMensagem("Attempting connection\n");
+		enviarMensagem(getMessageFromBundle("estabelecendoConexao"));
 		connection = new Socket(InetAddress.getByName(chatServer), PORT_CONNECTION);
-		enviarMensagem("Connected to: " + connection.getInetAddress().getHostName());
+		enviarMensagem(getMessageFromBundle("conectadoA") + connection.getInetAddress().getHostName());
 	} 
 
 	private void getStreams() throws IOException {
@@ -76,7 +77,7 @@ public class Client extends ChatAdapter {
 
 		input = new ObjectInputStream(connection.getInputStream());
 
-		enviarMensagem("\nGot I/O streams\n");
+		enviarMensagem(getMessageFromBundle("conexaoValidada"));
 	}
 
 } 

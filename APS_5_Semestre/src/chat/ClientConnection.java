@@ -1,12 +1,15 @@
 package chat;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
-public class ClientConnection {
-	
+public class ClientConnection implements Serializable{
+
+	private static final long serialVersionUID = -6796325031692825755L;
+
 	public static List<Usuario> usuariosMock = new ArrayList<>();
 	
 	public static Integer 	QUANTIDADE_USUARIOS = 5;

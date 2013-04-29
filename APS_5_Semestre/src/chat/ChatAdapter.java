@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -15,9 +16,6 @@ public abstract class ChatAdapter extends JFrame {
 	private static final long serialVersionUID = -2177977274268148656L;
 	
 	protected static final int PORT_CONNECTION = 12345;
-	
-	//TODO passar mensagems para um bundle
-	protected static final String FALHA_CONEXAO = "\n Servidor fora do ar";
 	
 	protected String message = ""; 
 	
@@ -50,7 +48,7 @@ public abstract class ChatAdapter extends JFrame {
 			enviarMensagem("\n" + this.user.getNomeUsuario() + ">>> " + message);
 		} 
 		catch (IOException ioException) {
-			displayArea.append("\nError writing object");
+			displayArea.append(getMessageFromBundle("erroAoEnviarMensagem"));
 		} 
 	}
 
@@ -73,9 +71,9 @@ public abstract class ChatAdapter extends JFrame {
 				}
 			); 
 	} 
-	
+
 	protected void closeConnection() {
-		enviarMensagem("\nClosing connection");
+		enviarMensagem(getMessageFromBundle("erroAoEnviarMensagem"));
 		setTextFieldEditable(false);
 		try {
 			output.close(); 
@@ -83,7 +81,7 @@ public abstract class ChatAdapter extends JFrame {
 			connection.close(); 
 		} 
 		catch (IOException ioException) {
-			enviarMensagem(FALHA_CONEXAO);
+			enviarMensagem(getMessageFromBundle("falhaConexao"));
 		} 
 	} 
 	
@@ -98,10 +96,17 @@ public abstract class ChatAdapter extends JFrame {
 				enviarMensagem("\n" + message); 
 			}
 			catch (ClassNotFoundException classNotFoundException) {
-				enviarMensagem("\nUnknown object type received");
+				enviarMensagem(getBundle().getString("unknowProjectType"));
 			}
 
 		} while (!message.equals(this.user.getNomeUsuario() + ">>> TERMINATE"));
 	}
 
+	public String getMessageFromBundle(String key){
+		return getBundle().getString(key);
+	}
+	
+	public ResourceBundle getBundle(){
+		return ResourceBundle.getBundle("messages");
+	}
 }

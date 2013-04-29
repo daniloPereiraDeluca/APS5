@@ -1,10 +1,13 @@
 package chat;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
-public class ServerConnection {
+public class ServerConnection implements Serializable{
+	
+	private static final long serialVersionUID = -8575133012712772879L;
 	
 	public static Usuario server;
 	
