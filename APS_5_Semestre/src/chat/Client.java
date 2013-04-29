@@ -1,6 +1,4 @@
 package chat;
-// Fig. 27.7: Client.java
-// Client portion of a stream-socket connection between client and server.
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Date;
 
 import javax.swing.JScrollPane;
 
@@ -26,13 +25,7 @@ public class Client extends ChatAdapter {
 		chatServer = host; 
 
 		enterField.setEditable(false);
-		enterField.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent event) {
-					sendData(event.getActionCommand());
-					enterField.setText("");
-				}
-			} 
-		);
+		quandoPressionarEnter();
 		
 		add(enterField, BorderLayout.NORTH);
 
@@ -40,6 +33,18 @@ public class Client extends ChatAdapter {
 
 		setSize(300, 150);
 		setVisible(true); 
+	}
+
+	private void quandoPressionarEnter() {
+		enterField.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent event) {
+					String mensagem = event.getActionCommand();
+					sendData(mensagem);
+					enterField.setText("");
+					user.getMensagens().add(new MensagemTO(mensagem, new Date()));
+				}
+			} 
+		);
 	} 
 
 	public void conectarBatePapo() {

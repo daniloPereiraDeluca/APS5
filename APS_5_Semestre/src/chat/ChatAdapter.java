@@ -16,6 +16,7 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected static final int PORT_CONNECTION = 12345;
 	
+	//TODO passar mensagems para um bundle
 	protected static final String FALHA_CONEXAO = "\n Servidor fora do ar";
 	
 	protected String message = ""; 
@@ -28,7 +29,7 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected JTextArea displayArea;
 	
-	private Usuario user;
+	protected Usuario user;
 	
 	protected Socket connection; 
 
