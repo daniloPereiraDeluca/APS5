@@ -17,16 +17,11 @@ import javax.swing.JScrollPane;
 public class Client extends ChatAdapter {
 	
 	private static final long serialVersionUID = 9159486593659897373L;
-
 	
-	private String message = ""; // message from server
-
 	private String chatServer; // host server for this application
 
-	private Socket client; // socket to communicate with server
-
-	public Client(String host, String userName) {
-		super("Client", userName);
+	public Client(String host, Usuario user) {
+		super("ClienteSide", user);
 		
 		chatServer = host; 
 
@@ -38,6 +33,7 @@ public class Client extends ChatAdapter {
 				}
 			} 
 		);
+		
 		add(enterField, BorderLayout.NORTH);
 
 		add(new JScrollPane(displayArea), BorderLayout.CENTER);
@@ -51,65 +47,31 @@ public class Client extends ChatAdapter {
 		{
 			connectToServer(); 
 			getStreams(); 
-			processConnection(); 
+			verificaConexao(); 
 		} 
 		catch (EOFException eofException) {
-			displayMessage("\nClient terminated connection");
+			enviarMensagem("\nClient terminated connection");
 		}
 		catch (IOException ioException) {
-			ioException.printStackTrace();
-		}
-		finally {
+			enviarMensagem(FALHA_CONEXAO);
+		} finally {
 			closeConnection(); 
 		} 
 	} 
 
 	private void connectToServer() throws IOException {
-		displayMessage("Attempting connection\n");
-
-		client = new Socket(InetAddress.getByName(chatServer), PORT_CONNECTION);
-
-		displayMessage("Connected to: " + client.getInetAddress().getHostName());
+		enviarMensagem("Attempting connection\n");
+		connection = new Socket(InetAddress.getByName(chatServer), PORT_CONNECTION);
+		enviarMensagem("Connected to: " + connection.getInetAddress().getHostName());
 	} 
 
 	private void getStreams() throws IOException {
-		output = new ObjectOutputStream(client.getOutputStream());
+		output = new ObjectOutputStream(connection.getOutputStream());
 		output.flush(); 
 
-		input = new ObjectInputStream(client.getInputStream());
+		input = new ObjectInputStream(connection.getInputStream());
 
-		displayMessage("\nGot I/O streams\n");
+		enviarMensagem("\nGot I/O streams\n");
 	}
-
-	public void processConnection() throws IOException {
-		setTextFieldEditable(true);
-
-		do // process messages sent from server
-		{
-			try
-			{
-				message = (String) input.readObject(); 
-				displayMessage("\n" + message); 
-			}
-			catch (ClassNotFoundException classNotFoundException) {
-				displayMessage("\nUnknown object type received");
-			}
-
-		} while (!message.equals("SERVER>>> TERMINATE"));
-	}
-
-	private void closeConnection() {
-		displayMessage("\nClosing connection");
-		setTextFieldEditable(false);
-
-		try {
-			output.close(); 
-			input.close(); 
-			client.close(); 
-		} 
-		catch (IOException ioException) {
-			ioException.printStackTrace();
-		} 
-	} 
 
 } 

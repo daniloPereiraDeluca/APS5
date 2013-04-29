@@ -2,6 +2,7 @@ package chat;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -15,6 +16,10 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected static final int PORT_CONNECTION = 12345;
 	
+	protected static final String FALHA_CONEXAO = "\n Servidor fora do ar";
+	
+	protected String message = ""; 
+	
 	protected JTextField enterField; 
 	
 	protected ObjectOutputStream output; 
@@ -23,32 +28,32 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected JTextArea displayArea;
 	
-	private String userName;
+	private Usuario user;
+	
+	protected Socket connection; 
 
-	public ChatAdapter(String string, String userName) {
+	public ChatAdapter(String string, Usuario user) {
 		super(string);
-		this.userName = userName;
+		this.user = user;
 		enterField = new JTextField(); 
 		this.displayArea = new JTextArea(); 
 	}
 
 	public abstract void conectarBatePapo();
 	
-	public abstract void processConnection() throws IOException;
-	
 	protected void sendData(String message){
 		try 
 		{
-			output.writeObject(this.userName + ">>> " + message);
+			output.writeObject(this.user.getNomeUsuario() + ">>> " + message);
 			output.flush(); 
-			displayMessage("\n" + this.userName + ">>> " + message);
+			enviarMensagem("\n" + this.user.getNomeUsuario() + ">>> " + message);
 		} 
 		catch (IOException ioException) {
 			displayArea.append("\nError writing object");
 		} 
 	}
-	//TODO fazer com que a cada mensagem enviada ele role para baixo
-	protected void displayMessage(final String messageToDisplay) {
+
+	protected void enviarMensagem(final String messageToDisplay) {
 		SwingUtilities.invokeLater(new Runnable() {
 					public void run() 
 					{
@@ -67,4 +72,35 @@ public abstract class ChatAdapter extends JFrame {
 				}
 			); 
 	} 
+	
+	protected void closeConnection() {
+		enviarMensagem("\nClosing connection");
+		setTextFieldEditable(false);
+		try {
+			output.close(); 
+			input.close(); 
+			connection.close(); 
+		} 
+		catch (IOException ioException) {
+			enviarMensagem(FALHA_CONEXAO);
+		} 
+	} 
+	
+	protected void verificaConexao() throws IOException {
+		setTextFieldEditable(true);
+
+		do // process messages sent from server
+		{
+			try
+			{
+				message = (String) input.readObject(); 
+				enviarMensagem("\n" + message); 
+			}
+			catch (ClassNotFoundException classNotFoundException) {
+				enviarMensagem("\nUnknown object type received");
+			}
+
+		} while (!message.equals(this.user.getNomeUsuario() + ">>> TERMINATE"));
+	}
+
 }
