@@ -1,8 +1,13 @@
 <?xml version="1.0"?>
-<chat>
-	<character>
-		<name>putinha</name>
+<users>
+	<user>
 		<id>01</id>
-		<password>putinha</password>
-	</character>
-</chat> 
+		<nome>Maria</nome>
+		<senha>senha01</senha>
+	</user>
+	<user>
+		<id>02</id>
+		<nome>Joao</nome>
+		<senha>senha02</senha>
+	</user>
+</users> 
