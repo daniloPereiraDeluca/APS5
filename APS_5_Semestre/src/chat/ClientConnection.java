@@ -19,16 +19,17 @@ public class ClientConnection implements Serializable{
 	}
 	
 	public static void main(String[] args) {
-		for (Usuario user : usuariosMock) {
+//		for (Usuario user : usuariosMock) {
 			Client application;
-			if (args.length == 0)
+			Usuario user = usuariosMock.get(new Random().nextInt(5));
+			if (args.length == 0) {
 				application = new Client("127.0.0.1", user);
-			else
+			} else
 				application = new Client(args[0], user);
 
 			application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			application.conectarBatePapo();
-		}
+//		}
 	}
 
 	//TODO gerar Mock apartir de um arquivo xml, onde temos os atributos:nome,id,senha   
