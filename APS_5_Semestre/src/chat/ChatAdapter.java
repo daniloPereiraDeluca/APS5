@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -30,12 +29,15 @@ public abstract class ChatAdapter extends JFrame {
 	protected Usuario user;
 	
 	protected Socket connection; 
+	
+	protected BundleUtil bundle;
 
-	public ChatAdapter(String string, Usuario user) {
-		super(string);
+	public ChatAdapter(String frameName, Usuario user, String bundleName) {
+		super(frameName);
 		this.user = user;
 		enterField = new JTextField(); 
 		this.displayArea = new JTextArea(); 
+		this.bundle = new BundleUtil(bundleName);
 	}
 
 	public abstract void conectarBatePapo();
@@ -48,7 +50,7 @@ public abstract class ChatAdapter extends JFrame {
 			enviarMensagem("\n" + this.user.getNomeUsuario() + ">>> " + message);
 		} 
 		catch (IOException ioException) {
-			displayArea.append(getMessageFromBundle("erroAoEnviarMensagem"));
+			displayArea.append(bundle.getMessage("erroAoEnviarMensagem"));
 		} 
 	}
 
@@ -73,7 +75,7 @@ public abstract class ChatAdapter extends JFrame {
 	} 
 
 	protected void closeConnection() {
-		enviarMensagem(getMessageFromBundle("erroAoEnviarMensagem"));
+		enviarMensagem(bundle.getMessage("erroAoEnviarMensagem"));
 		setTextFieldEditable(false);
 		try {
 			output.close(); 
@@ -81,7 +83,7 @@ public abstract class ChatAdapter extends JFrame {
 			connection.close(); 
 		} 
 		catch (IOException ioException) {
-			enviarMensagem(getMessageFromBundle("falhaConexao"));
+			enviarMensagem(bundle.getMessage("falhaConexao"));
 		} 
 	} 
 	
@@ -96,17 +98,10 @@ public abstract class ChatAdapter extends JFrame {
 				enviarMensagem("\n" + message); 
 			}
 			catch (ClassNotFoundException classNotFoundException) {
-				enviarMensagem(getBundle().getString("unknowProjectType"));
+				enviarMensagem(bundle.getMessage("unknowProjectType"));
 			}
 
 		} while (!message.equals(this.user.getNomeUsuario() + ">>> TERMINATE"));
 	}
 
-	public String getMessageFromBundle(String key){
-		return getBundle().getString(key);
-	}
-	
-	public ResourceBundle getBundle(){
-		return ResourceBundle.getBundle("messages");
-	}
 }

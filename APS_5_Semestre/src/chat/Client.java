@@ -21,7 +21,7 @@ public class Client extends ChatAdapter implements Serializable{
 	private String chatServer;
 
 	public Client(String host, Usuario user) {
-		super("ClienteSide", user);
+		super("ClienteSide", user,"messages");
 		
 		chatServer = host; 
 
@@ -56,19 +56,19 @@ public class Client extends ChatAdapter implements Serializable{
 			verificaConexao(); 
 		} 
 		catch (EOFException eofException) {
-			enviarMensagem(getMessageFromBundle("sessaoTerminada"));
+			enviarMensagem(bundle.getMessage("sessaoTerminada"));
 		}
 		catch (IOException ioException) {
-			enviarMensagem(getMessageFromBundle("falhaConexao"));
+			enviarMensagem(bundle.getMessage("falhaConexao"));
 		} finally {
 			closeConnection(); 
 		} 
 	} 
 
 	private void connectToServer() throws IOException {
-		enviarMensagem(getMessageFromBundle("estabelecendoConexao"));
+		enviarMensagem(bundle.getMessage("estabelecendoConexao"));
 		connection = new Socket(InetAddress.getByName(chatServer), PORT_CONNECTION);
-		enviarMensagem(getMessageFromBundle("conectadoA") + connection.getInetAddress().getHostName());
+		enviarMensagem(bundle.getMessage("conectadoA") + connection.getInetAddress().getHostName());
 	} 
 
 	private void getStreams() throws IOException {
@@ -77,7 +77,7 @@ public class Client extends ChatAdapter implements Serializable{
 
 		input = new ObjectInputStream(connection.getInputStream());
 
-		enviarMensagem(getMessageFromBundle("conexaoValidada"));
+		enviarMensagem(bundle.getMessage("conexaoValidada"));
 	}
 
 } 

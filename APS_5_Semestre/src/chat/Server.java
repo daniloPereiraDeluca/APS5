@@ -21,7 +21,7 @@ public class Server extends ChatAdapter implements Serializable{
 	private int counter = 1; // counter of number of connections
 
 	public Server(Usuario serverUser) {
-		super("Server", serverUser);
+		super("Server", serverUser, "messages");
 
 		enterField.setEditable(false);
 		enterField.addActionListener(new ActionListener() {
@@ -69,7 +69,7 @@ public class Server extends ChatAdapter implements Serializable{
 	private void esperandoConexaoDoCliente() throws IOException {
 		enviarMensagem("\nWaiting for connection\n");
 		connection = server.accept(); 
-		enviarMensagem("Total de Conexoes " + counter + ", conectadas a: "
+		enviarMensagem(bundle.getMessage("totalConexao") + counter + ", conectadas a: "
 				+ connection.getInetAddress().getHostName());
 	}
 
@@ -79,7 +79,7 @@ public class Server extends ChatAdapter implements Serializable{
 
 		input = new ObjectInputStream(connection.getInputStream());
 
-		enviarMensagem(getMessageFromBundle("conexaoValidada"));
+		enviarMensagem(bundle.getMessage("conexaoValidada"));
 	} 
 }
 
