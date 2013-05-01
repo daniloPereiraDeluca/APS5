@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import br.com.APS.chat.MensagemTO;
 
-public class ServerDTO implements ClienteConnector,Serializable{
+public class ServerDTO implements SimpleDTO,Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,24 +17,23 @@ public class ServerDTO implements ClienteConnector,Serializable{
 
 	private List<MensagemTO> mensagens = new ArrayList<MensagemTO>();
 	
-	private int portaConexao;
+	private Integer portaConexao;
 
-	public ServerDTO(String nome, Integer id, List<MensagemTO> mensagens) {
+	public ServerDTO(String nome, Integer id, Integer port) {
 		super();
 		this.nome = nome;
 		this.id = id;
-		this.mensagens = mensagens;
+		this.portaConexao = port;
+		this.mensagens = new ArrayList<MensagemTO>();
 	}
 
 	public ServerDTO() {
 	}
 
-	public ServerDTO(Map<String, Object> mapValues){
-		for (String key : mapValues.keySet()) {
-			setValue(key, mapValues.get(key));
-		}
+	public ServerDTO(SimpleDTO simpleDTO) {
+		
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -48,11 +46,11 @@ public class ServerDTO implements ClienteConnector,Serializable{
 		return mensagens;
 	}
 
-	public int getPortaConexao() {
+	public Integer getPortaConexao() {
 		return portaConexao;
 	}
 
-	public void setPortaConexao(int portaConexao) {
+	public void setPortaConexao(Integer portaConexao) {
 		this.portaConexao = portaConexao;
 	}
 
@@ -61,15 +59,11 @@ public class ServerDTO implements ClienteConnector,Serializable{
 		return Arrays.asList("id", "nome", "portaConexao");
 	}
 
-	public void setValue(String key, Object value){
-		if(key.equals("id")){
-			this.id = new Integer((String) value);
-		} else if(key.equals("nome")) {
-			this.nome = (String) value;
-		} else if(key.equals("portaConexao")){
-			this.portaConexao = (int) value;
-		}
-		
+	@Override
+	@Deprecated
+	public String getSenha() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

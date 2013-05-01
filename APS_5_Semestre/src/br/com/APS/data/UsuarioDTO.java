@@ -7,7 +7,7 @@ import java.util.List;
 
 import br.com.APS.chat.MensagemTO;
 
-public class UsuarioDTO implements Serializable, ClienteConnector{
+public class UsuarioDTO implements Serializable, SimpleDTO{
 
 	private static final long serialVersionUID = -1055798285864609452L;
 
@@ -19,12 +19,15 @@ public class UsuarioDTO implements Serializable, ClienteConnector{
 
 	private List<MensagemTO> mensagens = new ArrayList<MensagemTO>();
 
-	public UsuarioDTO(String nomeUsuario, Integer idUsuario, String senha) {
+	public UsuarioDTO(String nome, Integer id, String senha) {
 		super();
-		this.nome = nomeUsuario;
-		this.id = idUsuario;
+		this.nome = nome;
+		this.id = id;
 		this.senha = senha;
 		this.mensagens = new ArrayList<MensagemTO>();
+	}
+
+	public UsuarioDTO() {
 	}
 
 	public String getNome() {
@@ -46,6 +49,13 @@ public class UsuarioDTO implements Serializable, ClienteConnector{
 	@Override
 	public List<String> getKeys() {
 		return Arrays.asList("id", "nome", "senha");
+	}
+
+	@Override
+	@Deprecated
+	public Integer getPortaConexao() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -3,9 +3,8 @@ package br.com.APS.data;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,11 +30,11 @@ public abstract class XMLReader implements Serializable{
 		this.objectFromFile = objectFromFile;
 	}
 	
-	public abstract Map<String, Object> pegarDadosDoXML(Document doc);
+	public abstract List<? extends SimpleDTO> pegarDadosDoXML(Document doc);
 	
 	//key, dado
-	public Map<String, Object> getDados(){
-		Map<String, Object> dados = new HashMap<>();
+	public List<? extends SimpleDTO> getDados(){
+		List<? extends SimpleDTO> dados = new ArrayList();
 		try {
 			Document doc = criarDocumento();
 			dados = pegarDadosDoXML(doc);
@@ -55,7 +54,7 @@ public abstract class XMLReader implements Serializable{
 		return doc;
 	}
 	
-	public static String getValue(String tag, Element element) {
+	public static Object getValue(String tag, Element element) {
 		NodeList nodes = element.getElementsByTagName(tag).item(0)
 				.getChildNodes();
 		Node node = (Node) nodes.item(0);

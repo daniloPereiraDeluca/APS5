@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.APS.chat.MensagemTO;
 
-public interface ClienteConnector {
+public interface SimpleDTO {
 	
 	public String getNome();
 	
@@ -13,4 +13,9 @@ public interface ClienteConnector {
 	public List<MensagemTO> getMensagens();
 	
 	public List<String> getKeys(); 
+	
+	public Integer getPortaConexao();
+	
+	public String getSenha();
+	
 }

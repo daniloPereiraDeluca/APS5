@@ -1,4 +1,5 @@
 package br.com.APS.chat;
+import java.io.File;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -9,6 +10,8 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import br.com.APS.data.UsuarioDTO;
+import br.com.APS.data.UsuarioXMLReader;
+import br.com.APS.data.XMLReader;
 
 public class ClientConnection implements Serializable{
 
@@ -34,6 +37,11 @@ public class ClientConnection implements Serializable{
 
 	//TODO gerar Mock apartir de um arquivo xml, onde temos os atributos:nome,id,senha   
 	private static void gerarMockUsuarios(Integer quantidadeCriacao) {
+		
+		File userFile = new File("resources/usuario.xml");
+		
+		XMLReader reader = new UsuarioXMLReader(userFile, new UsuarioDTO().getKeys());
+		reader.getDados();
 		for (int i = 0; i < quantidadeCriacao; i++) {
 			UsuarioDTO user = new UsuarioDTO("User " + i, 10+i, String.valueOf(new Random().nextInt(10000) + i));
 			usuariosMock.add(user);

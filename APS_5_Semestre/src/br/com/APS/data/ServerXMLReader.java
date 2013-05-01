@@ -1,9 +1,8 @@
 package br.com.APS.data;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,19 +18,19 @@ public class ServerXMLReader extends XMLReader {
 	}
 
 	@Override
-	public Map<String, Object> pegarDadosDoXML(Document doc) {
-		Map<String, Object> mapValues = new HashMap<>();
+	public List<? extends SimpleDTO> pegarDadosDoXML(Document doc){
+		List<ServerDTO> mapValues = new ArrayList<ServerDTO>();
 		NodeList nodes = doc.getElementsByTagName("server");
 		if (nodes != null) {
-			Node item = nodes.item(0);
+			Node item = nodes.item(0);//sempre pega somente um server
 			if (item.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) item;
-				mapValues.put("id", getValue("id", element));
-				mapValues.put("nome", getValue("nome", element));
-				mapValues.put("port", getValue("port", element));
+				ServerDTO server = new ServerDTO((String)getValue("nome", element),
+						new Integer((String) getValue("id", element)),
+						new Integer((String) getValue("port", element)));
+				mapValues.add(server);
 			}
 		}
 		return mapValues;
 	}
-
 }
