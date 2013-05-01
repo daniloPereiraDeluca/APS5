@@ -6,39 +6,43 @@ import java.util.List;
 
 public class Usuario implements Serializable{
 
-	private static final long serialVersionUID = -1055798285864609452L;
-	
-	private String nomeUsuario;
-	
-	private Integer idUsuario;
-	
-	private String senha;
-	
-	private List<MensagemTO> mensagens = new ArrayList<MensagemTO>();
+private static final long serialVersionUID = -1055798285864609452L;
 
-	public Usuario(String nomeUsuario, Integer idUsuario, String senha) {
-		super();
-		this.nomeUsuario = nomeUsuario;
-		this.idUsuario = idUsuario;
-		this.senha = senha;
-		this.mensagens = new ArrayList<MensagemTO>();
-	}
+private String nome;
 
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
+private Integer id;
 
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
+private String senha;
 
-	public List<MensagemTO> getMensagens() {
-		return mensagens;
-	}
+private List<MensagemTO> mensagens = new ArrayList<MensagemTO>();
 
-	public void setMensagens(List<MensagemTO> mensagens) {
-		this.mensagens = mensagens;
-	}
-	
-	
+public Usuario(String nomeUsuario, Integer idUsuario, String senha) {
+super();
+this.nome = nomeUsuario;
+this.id = idUsuario;
+this.senha = senha;
+this.mensagens = new ArrayList<MensagemTO>();
+}
+
+public String getNomeUsuario() {
+return nome;
+}
+
+public Integer getIdUsuario() {
+return id;
+}
+
+public String getSenha() {
+	return senha;
+}
+
+public List<MensagemTO> getMensagens() {
+return mensagens;
+}
+
+public void setMensagens(List<MensagemTO> mensagens) {
+this.mensagens = mensagens;
+}
+
+
 }
