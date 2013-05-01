@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import br.com.APS.chat.MensagemTO;
+import br.com.APS.chat.to.MensagemTO;
 
 public class ServerDTO implements BaseDTO,Serializable{
 

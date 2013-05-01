@@ -14,6 +14,7 @@ import java.util.Date;
 
 import javax.swing.JScrollPane;
 
+import br.com.APS.chat.to.MensagemTO;
 import br.com.APS.data.ServerDTO;
 import br.com.APS.data.UsuarioDTO;
 import br.com.APS.impl.service.ServerServiceImpl;

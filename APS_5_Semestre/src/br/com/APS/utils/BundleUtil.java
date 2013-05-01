@@ -1,4 +1,4 @@
-package br.com.APS.chat;
+package br.com.APS.utils;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;

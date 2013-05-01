@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang.StringUtils;
 
 import br.com.APS.data.BaseDTO;
+import br.com.APS.utils.BundleUtil;
 
 
 public abstract class ChatAdapter extends JFrame {

@@ -1,4 +1,4 @@
-package br.com.APS.chat;
+package br.com.APS.chat.to;
 
 import java.io.Serializable;
 import java.util.Date;
