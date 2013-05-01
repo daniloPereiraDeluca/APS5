@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.AbstractListModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -14,7 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
-public class FormsJanelaIPS extends javax.swing.JFrame {
+public class FormsJanelaIPS extends JFrame {
 
 	private static final long serialVersionUID = -4623808877026326988L;
 
