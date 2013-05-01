@@ -9,6 +9,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.APS.data.BaseDTO;
 
 
@@ -16,9 +18,7 @@ public abstract class ChatAdapter extends JFrame {
 
 	private static final long serialVersionUID = -2177977274268148656L;
 	
-	protected static final int PORT_CONNECTION = 7777;
-	
-	protected String message = ""; 
+	protected String message = StringUtils.EMPTY; 
 	
 	protected JTextField enterField; 
 	
@@ -50,8 +50,7 @@ public abstract class ChatAdapter extends JFrame {
 			output.writeObject(this.user.getNome() + ">>> " + message);
 			output.flush(); 
 			enviarMensagem("\n" + this.user.getNome() + ">>> " + message);
-		} 
-		catch (IOException ioException) {
+		} catch (IOException ioException) {
 			displayArea.append(bundle.getMessage("erroAoEnviarMensagem"));
 		} 
 	}
@@ -83,26 +82,22 @@ public abstract class ChatAdapter extends JFrame {
 			output.close(); 
 			input.close(); 
 			connection.close(); 
-		} 
-		catch (IOException ioException) {
+		} catch (IOException ioException) {
 			enviarMensagem(bundle.getMessage("falhaConexao"));
 		} 
 	} 
 	
 	protected void verificaConexao() throws IOException {
 		setTextFieldEditable(true);
-
-		do // process messages sent from server
+		do 
 		{
 			try
 			{
 				message = (String) input.readObject(); 
 				enviarMensagem("\n" + message); 
-			}
-			catch (ClassNotFoundException classNotFoundException) {
+			} catch (ClassNotFoundException classNotFoundException) {
 				enviarMensagem(bundle.getMessage("unknowProjectType"));
 			}
-
 		} while (!message.equals(this.user.getNome() + ">>> TERMINATE"));
 	}
 

@@ -1,14 +1,12 @@
 package br.com.APS.chat;
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.List;
 
 import javax.swing.JFrame;
 
 import br.com.APS.data.ServerDTO;
-import br.com.APS.data.ServerXMLReader;
-import br.com.APS.data.XMLReader;
+import br.com.APS.impl.service.ServerServiceImpl;
+import br.com.APS.service.ServerService;
 
 public class ServerConnection implements Serializable{
 	
@@ -16,26 +14,17 @@ public class ServerConnection implements Serializable{
 	
 	public static ServerDTO server;
 	
-	static {
-		criarServidor();
-	}
-	
 	public static void main(String[] args) {
+		
+		server = getServerService().getServer();
 		
 		ServerChat application = new ServerChat(server);
 		application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		application.conectarBatePapo();
 	}
-	
-	//TODO remover mock, criar service
-	private static void criarServidor() {
-		File serverFile = new File("resources/servidor.xml");
-		server = new ServerDTO();
-		XMLReader reader = new ServerXMLReader(serverFile, server.getKeys());
-		List dadosDoXML = reader.getDadosDoXML();
-		if (!dadosDoXML.isEmpty()){
-			ServerDTO serverDados = (ServerDTO) dadosDoXML.get(0);
-			server = new ServerDTO(serverDados.getNome(), serverDados.getId(), serverDados.getPortaConexao());
-		}
+
+	public static ServerService getServerService() {
+		return new ServerServiceImpl();
 	}
+	
 }

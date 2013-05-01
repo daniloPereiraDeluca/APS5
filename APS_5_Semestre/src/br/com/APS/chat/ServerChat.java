@@ -22,9 +22,12 @@ public class ServerChat extends ChatAdapter implements Serializable{
 	
 	private int counter = 1; // counter of number of connections
 
+	private ServerDTO severUser;
+	
 	public ServerChat(ServerDTO serverUser) {
 		super("Server", serverUser, "messages");
 
+		this.severUser = serverUser;
 		enterField.setEditable(false);
 		enterField.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
@@ -46,18 +49,16 @@ public class ServerChat extends ChatAdapter implements Serializable{
 	public void conectarBatePapo() {
 		try 
 		{
-			server = new ServerSocket(PORT_CONNECTION, 100); 
+			server = new ServerSocket(this.severUser.getPortaConexao(), 100); 
 
 			while (true) {
 				try {
 					esperandoConexaoDoCliente(); 
 					inicializarOutputStream(); 
 					verificaConexao(); 
-				} 
-				catch (EOFException eofException) {
-					enviarMensagem("\nConexao terminada");
-				} 
-				finally {
+				} catch (EOFException eofException) {
+					enviarMensagem(bundle.getMessage("conexaoTerminada"));
+				} finally {
 					closeConnection(); 
 					++counter;
 				} 
@@ -69,7 +70,7 @@ public class ServerChat extends ChatAdapter implements Serializable{
 	} 
 
 	private void esperandoConexaoDoCliente() throws IOException {
-		enviarMensagem("\nWaiting for connection\n");
+		enviarMensagem(bundle.getMessage("esperandoConexao"));
 		connection = server.accept(); 
 		enviarMensagem(bundle.getMessage("totalConexao") + counter + ", conectadas a: "
 				+ connection.getInetAddress().getHostName());

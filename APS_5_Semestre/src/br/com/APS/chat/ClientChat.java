@@ -14,7 +14,10 @@ import java.util.Date;
 
 import javax.swing.JScrollPane;
 
+import br.com.APS.data.ServerDTO;
 import br.com.APS.data.UsuarioDTO;
+import br.com.APS.impl.service.ServerServiceImpl;
+import br.com.APS.service.ServerService;
 
 
 public class ClientChat extends ChatAdapter implements Serializable{
@@ -22,9 +25,13 @@ public class ClientChat extends ChatAdapter implements Serializable{
 	private static final long serialVersionUID = 9159486593659897373L;
 	
 	private InetAddress inetAddress;
+	
+	private ServerDTO serverConexao;
 
 	public ClientChat(InetAddress inetAddress, UsuarioDTO user) throws UnknownHostException {
 		super("ClienteSide", user,"messages");
+		this.serverConexao = getServerService().getServer();
+		
 		this.inetAddress = inetAddress;
 		enterField.setEditable(false);
 		quandoPressionarEnter();
@@ -68,7 +75,7 @@ public class ClientChat extends ChatAdapter implements Serializable{
 
 	private void connectToServer() throws IOException {
 		enviarMensagem(bundle.getMessage("estabelecendoConexao"));
-		connection = new Socket(this.inetAddress, PORT_CONNECTION);
+		connection = new Socket(this.inetAddress, this.serverConexao.getPortaConexao());
 		enviarMensagem(bundle.getMessage("conectadoA") + connection.getInetAddress().getHostName());
 	} 
 
@@ -81,4 +88,7 @@ public class ClientChat extends ChatAdapter implements Serializable{
 		enviarMensagem(bundle.getMessage("conexaoValidada"));
 	}
 
+	public static ServerService getServerService() {
+		return new ServerServiceImpl();
+	}
 } 
