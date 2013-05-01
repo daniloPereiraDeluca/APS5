@@ -18,7 +18,7 @@ public class ServerXMLReader extends XMLReader {
 	}
 
 	@Override
-	public List<? extends BaseDTO> pegarDadosDoXML(Document doc){
+	public List<? extends BaseDTO> gerarDadosDoXML(Document doc){
 		List<ServerDTO> mapValues = new ArrayList<ServerDTO>();
 		NodeList nodes = doc.getElementsByTagName("server");
 		if (nodes != null) {
@@ -32,5 +32,18 @@ public class ServerXMLReader extends XMLReader {
 			}
 		}
 		return mapValues;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ServerDTO> getDadosDoXML() {
+		List<ServerDTO> dados = new ArrayList<ServerDTO>();
+		try {
+			Document doc = criarDocumento();
+			dados = (List<ServerDTO>) gerarDadosDoXML(doc);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return dados;
 	}
 }

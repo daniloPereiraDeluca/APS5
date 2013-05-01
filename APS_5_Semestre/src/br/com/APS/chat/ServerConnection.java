@@ -2,12 +2,12 @@ package br.com.APS.chat;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.swing.JFrame;
 
 import br.com.APS.data.ServerDTO;
 import br.com.APS.data.ServerXMLReader;
-import br.com.APS.data.BaseDTO;
 import br.com.APS.data.XMLReader;
 
 public class ServerConnection implements Serializable{
@@ -32,8 +32,9 @@ public class ServerConnection implements Serializable{
 		File serverFile = new File("resources/servidor.xml");
 		server = new ServerDTO();
 		XMLReader reader = new ServerXMLReader(serverFile, server.getKeys());
-		if (!reader.getDados().isEmpty()){
-			BaseDTO serverDados = reader.getDados().get(0);
+		List dadosDoXML = reader.getDadosDoXML();
+		if (!dadosDoXML.isEmpty()){
+			ServerDTO serverDados = (ServerDTO) dadosDoXML.get(0);
 			server = new ServerDTO(serverDados.getNome(), serverDados.getId(), serverDados.getPortaConexao());
 		}
 	}

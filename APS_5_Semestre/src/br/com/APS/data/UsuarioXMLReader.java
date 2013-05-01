@@ -19,7 +19,7 @@ public class UsuarioXMLReader extends XMLReader{
 
 	
 	@Override
-	public List<? extends BaseDTO> pegarDadosDoXML(Document doc){
+	public List<? extends BaseDTO> gerarDadosDoXML(Document doc){
 		List<UsuarioDTO> mapValues = new ArrayList<UsuarioDTO>();
 		NodeList nodes = doc.getElementsByTagName("user");
 		
@@ -35,6 +35,20 @@ public class UsuarioXMLReader extends XMLReader{
 			}
 		}
 		return mapValues;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UsuarioDTO> getDadosDoXML() {
+		List<UsuarioDTO> dados = new ArrayList<UsuarioDTO>();
+		try {
+			Document doc = criarDocumento();
+			dados = (List<UsuarioDTO>) gerarDadosDoXML(doc);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return dados;
 	}
 
 }

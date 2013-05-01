@@ -3,7 +3,6 @@ package br.com.APS.data;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -30,21 +29,11 @@ public abstract class XMLReader implements Serializable{
 		this.objectFromFile = objectFromFile;
 	}
 	
-	public abstract List<? extends BaseDTO> pegarDadosDoXML(Document doc);
+	public abstract List<?> gerarDadosDoXML(Document doc);
 	
-	//key, dado
-	public List<? extends BaseDTO> getDados(){
-		List<? extends BaseDTO> dados = new ArrayList();
-		try {
-			Document doc = criarDocumento();
-			dados = pegarDadosDoXML(doc);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return dados;
-	}
+	public abstract List<?> getDadosDoXML();
 
-	private Document criarDocumento() throws ParserConfigurationException,
+	protected Document criarDocumento() throws ParserConfigurationException,
 			SAXException, IOException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = factory.newDocumentBuilder();
