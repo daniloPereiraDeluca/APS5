@@ -19,6 +19,7 @@ public class ServerConnection implements Serializable{
 	static {
 		criarServidor();
 	}
+	
 	public static void main(String[] args) {
 		
 		ServerChat application = new ServerChat(server);
@@ -26,6 +27,7 @@ public class ServerConnection implements Serializable{
 		application.conectarBatePapo();
 	}
 	
+	//TODO remover mock, criar service
 	private static void criarServidor() {
 		File serverFile = new File("resources/servidor.xml");
 		server = new ServerDTO();

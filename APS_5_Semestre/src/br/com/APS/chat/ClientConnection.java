@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import br.com.APS.data.SimpleDTO;
 import br.com.APS.data.UsuarioDTO;
 import br.com.APS.data.UsuarioXMLReader;
 import br.com.APS.data.XMLReader;
@@ -16,18 +17,20 @@ import br.com.APS.data.XMLReader;
 public class ClientConnection implements Serializable{
 
 	private static final long serialVersionUID = -6796325031692825755L;
-
+	
+	//TODO passar para um service buscarUsuarios() que faz a consulta ao xml
+	// nesse service poderemos ja fazer a parte de login
 	public static List<UsuarioDTO> usuariosMock = new ArrayList<>();
 	
-	public static Integer 	QUANTIDADE_USUARIOS = 5;
+	public static Integer QUANTIDADE_USUARIOS = 0;
 	
 	static {
-		gerarMockUsuarios(QUANTIDADE_USUARIOS);
+		gerarMockUsuarios();
 	}
 	
 	public static void main(String[] args) throws UnknownHostException {
 			ClientChat application;
-			UsuarioDTO user = usuariosMock.get(new Random().nextInt(5));
+			UsuarioDTO user = usuariosMock.get(new Random().nextInt(QUANTIDADE_USUARIOS));
 			
 			application = new ClientChat(InetAddress.getLocalHost(), user);
 
@@ -35,16 +38,19 @@ public class ClientConnection implements Serializable{
 			application.conectarBatePapo();
 	}
 
-	//TODO gerar Mock apartir de um arquivo xml, onde temos os atributos:nome,id,senha   
-	private static void gerarMockUsuarios(Integer quantidadeCriacao) {
+	private static void gerarMockUsuarios() {
 		
 		File userFile = new File("resources/usuario.xml");
 		
 		XMLReader reader = new UsuarioXMLReader(userFile, new UsuarioDTO().getKeys());
-		reader.getDados();
-		for (int i = 0; i < quantidadeCriacao; i++) {
-			UsuarioDTO user = new UsuarioDTO("User " + i, 10+i, String.valueOf(new Random().nextInt(10000) + i));
+		for (SimpleDTO userDTO : reader.getDados()) {
+			
+			String nome = userDTO.getNome();
+			Integer id = userDTO.getId();
+			String senha = userDTO.getSenha();
+			UsuarioDTO user = new UsuarioDTO(nome, id, senha);
 			usuariosMock.add(user);
 		}
+		QUANTIDADE_USUARIOS = usuariosMock.size();
 	}
 }
