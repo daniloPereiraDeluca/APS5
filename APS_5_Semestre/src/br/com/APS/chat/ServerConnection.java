@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import br.com.APS.data.ServerDTO;
 import br.com.APS.data.ServerXMLReader;
-import br.com.APS.data.SimpleDTO;
+import br.com.APS.data.BaseDTO;
 import br.com.APS.data.XMLReader;
 
 public class ServerConnection implements Serializable{
@@ -33,7 +33,7 @@ public class ServerConnection implements Serializable{
 		server = new ServerDTO();
 		XMLReader reader = new ServerXMLReader(serverFile, server.getKeys());
 		if (!reader.getDados().isEmpty()){
-			SimpleDTO serverDados = reader.getDados().get(0);
+			BaseDTO serverDados = reader.getDados().get(0);
 			server = new ServerDTO(serverDados.getNome(), serverDados.getId(), serverDados.getPortaConexao());
 		}
 	}

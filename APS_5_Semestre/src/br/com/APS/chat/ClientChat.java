@@ -21,8 +21,6 @@ public class ClientChat extends ChatAdapter implements Serializable{
 	
 	private static final long serialVersionUID = 9159486593659897373L;
 	
-	private String chatServer;
-	
 	private InetAddress inetAddress;
 
 	public ClientChat(InetAddress inetAddress, UsuarioDTO user) throws UnknownHostException {

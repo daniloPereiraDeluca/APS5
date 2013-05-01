@@ -30,11 +30,11 @@ public abstract class XMLReader implements Serializable{
 		this.objectFromFile = objectFromFile;
 	}
 	
-	public abstract List<? extends SimpleDTO> pegarDadosDoXML(Document doc);
+	public abstract List<? extends BaseDTO> pegarDadosDoXML(Document doc);
 	
 	//key, dado
-	public List<? extends SimpleDTO> getDados(){
-		List<? extends SimpleDTO> dados = new ArrayList();
+	public List<? extends BaseDTO> getDados(){
+		List<? extends BaseDTO> dados = new ArrayList();
 		try {
 			Document doc = criarDocumento();
 			dados = pegarDadosDoXML(doc);

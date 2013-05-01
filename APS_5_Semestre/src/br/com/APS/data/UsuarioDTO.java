@@ -7,7 +7,7 @@ import java.util.List;
 
 import br.com.APS.chat.MensagemTO;
 
-public class UsuarioDTO implements Serializable, SimpleDTO{
+public class UsuarioDTO implements Serializable, BaseDTO{
 
 	private static final long serialVersionUID = -1055798285864609452L;
 

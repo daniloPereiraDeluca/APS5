@@ -18,7 +18,7 @@ public class ServerXMLReader extends XMLReader {
 	}
 
 	@Override
-	public List<? extends SimpleDTO> pegarDadosDoXML(Document doc){
+	public List<? extends BaseDTO> pegarDadosDoXML(Document doc){
 		List<ServerDTO> mapValues = new ArrayList<ServerDTO>();
 		NodeList nodes = doc.getElementsByTagName("server");
 		if (nodes != null) {

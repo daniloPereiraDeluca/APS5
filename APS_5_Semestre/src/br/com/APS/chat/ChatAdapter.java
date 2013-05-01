@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import br.com.APS.data.SimpleDTO;
+import br.com.APS.data.BaseDTO;
 
 
 public abstract class ChatAdapter extends JFrame {
@@ -28,13 +28,13 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected JTextArea displayArea;
 	
-	protected SimpleDTO user;
+	protected BaseDTO user;
 	
 	protected Socket connection; 
 	
 	protected BundleUtil bundle;
 
-	public ChatAdapter(String frameName, SimpleDTO user, String bundleName) {
+	public ChatAdapter(String frameName, BaseDTO user, String bundleName) {
 		super(frameName);
 		this.user = user;
 		enterField = new JTextField(); 

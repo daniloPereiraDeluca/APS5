@@ -19,7 +19,7 @@ public class UsuarioXMLReader extends XMLReader{
 
 	
 	@Override
-	public List<? extends SimpleDTO> pegarDadosDoXML(Document doc){
+	public List<? extends BaseDTO> pegarDadosDoXML(Document doc){
 		List<UsuarioDTO> mapValues = new ArrayList<UsuarioDTO>();
 		NodeList nodes = doc.getElementsByTagName("user");
 		

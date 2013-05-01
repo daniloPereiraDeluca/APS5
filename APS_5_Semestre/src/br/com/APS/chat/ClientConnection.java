@@ -9,7 +9,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import br.com.APS.data.SimpleDTO;
+import br.com.APS.data.BaseDTO;
 import br.com.APS.data.UsuarioDTO;
 import br.com.APS.data.UsuarioXMLReader;
 import br.com.APS.data.XMLReader;
@@ -43,7 +43,7 @@ public class ClientConnection implements Serializable{
 		File userFile = new File("resources/usuario.xml");
 		
 		XMLReader reader = new UsuarioXMLReader(userFile, new UsuarioDTO().getKeys());
-		for (SimpleDTO userDTO : reader.getDados()) {
+		for (BaseDTO userDTO : reader.getDados()) {
 			
 			String nome = userDTO.getNome();
 			Integer id = userDTO.getId();
