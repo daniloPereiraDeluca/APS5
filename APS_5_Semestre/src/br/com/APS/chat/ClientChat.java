@@ -27,11 +27,13 @@ public class ClientChat extends ChatAdapter implements Serializable{
 	private InetAddress inetAddress;
 	
 	private ServerDTO serverConexao;
+	
+	private UsuarioDTO user;
 
 	public ClientChat(InetAddress inetAddress, UsuarioDTO user) throws UnknownHostException {
 		super("ClienteSide", user,"messages");
 		this.serverConexao = getServerService().getServer();
-		
+		this.user = user;
 		this.inetAddress = inetAddress;
 		enterField.setEditable(false);
 		quandoPressionarEnter();

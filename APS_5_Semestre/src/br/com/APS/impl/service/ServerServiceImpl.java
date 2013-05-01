@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import br.com.APS.data.ServerDTO;
-import br.com.APS.data.ServerXMLReader;
-import br.com.APS.data.XMLReader;
 import br.com.APS.service.ServerService;
+import br.com.APS.xml.ServerXMLReader;
+import br.com.APS.xml.XMLReader;
 
 public class ServerServiceImpl implements ServerService{
 

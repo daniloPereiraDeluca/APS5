@@ -28,7 +28,7 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected JTextArea displayArea;
 	
-	protected BaseDTO user;
+	protected BaseDTO base;
 	
 	protected Socket connection; 
 	
@@ -36,7 +36,7 @@ public abstract class ChatAdapter extends JFrame {
 
 	public ChatAdapter(String frameName, BaseDTO user, String bundleName) {
 		super(frameName);
-		this.user = user;
+		this.base = user;
 		enterField = new JTextField(); 
 		this.displayArea = new JTextArea(); 
 		this.bundle = new BundleUtil(bundleName);
@@ -47,9 +47,9 @@ public abstract class ChatAdapter extends JFrame {
 	protected void sendData(String message){
 		try 
 		{
-			output.writeObject(this.user.getNome() + ">>> " + message);
+			output.writeObject(this.base.getNome() + ">>> " + message);
 			output.flush(); 
-			enviarMensagem("\n" + this.user.getNome() + ">>> " + message);
+			enviarMensagem("\n" + this.base.getNome() + ">>> " + message);
 		} catch (IOException ioException) {
 			displayArea.append(bundle.getMessage("erroAoEnviarMensagem"));
 		} 
@@ -98,7 +98,7 @@ public abstract class ChatAdapter extends JFrame {
 			} catch (ClassNotFoundException classNotFoundException) {
 				enviarMensagem(bundle.getMessage("unknowProjectType"));
 			}
-		} while (!message.equals(this.user.getNome() + ">>> TERMINATE"));
+		} while (!message.equals(this.base.getNome() + ">>> TERMINATE"));
 	}
 
 }

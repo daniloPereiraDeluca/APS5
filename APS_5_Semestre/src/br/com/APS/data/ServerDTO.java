@@ -59,11 +59,4 @@ public class ServerDTO implements BaseDTO,Serializable{
 		return Arrays.asList("id", "nome", "portaConexao");
 	}
 
-	@Override
-	@Deprecated
-	public String getSenha() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

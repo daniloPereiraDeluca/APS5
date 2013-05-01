@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 import br.com.APS.data.UsuarioDTO;
-import br.com.APS.data.UsuarioXMLReader;
-import br.com.APS.data.XMLReader;
 import br.com.APS.service.UsuarioService;
+import br.com.APS.xml.UsuarioXMLReader;
+import br.com.APS.xml.XMLReader;
 
 public class UsuarioServiceImpl implements UsuarioService{
 

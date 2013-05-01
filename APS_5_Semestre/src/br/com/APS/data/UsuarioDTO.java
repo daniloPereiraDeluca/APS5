@@ -51,11 +51,4 @@ public class UsuarioDTO implements Serializable, BaseDTO{
 		return Arrays.asList("id", "nome", "senha");
 	}
 
-	@Override
-	@Deprecated
-	public Integer getPortaConexao() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

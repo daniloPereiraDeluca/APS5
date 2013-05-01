@@ -1,4 +1,4 @@
-package br.com.APS.data;
+package br.com.APS.xml;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +8,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import br.com.APS.data.BaseDTO;
+import br.com.APS.data.ServerDTO;
 
 public class ServerXMLReader extends XMLReader {
 
