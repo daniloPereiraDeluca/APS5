@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <usuarios>
+	<user>
 		<id>01</id>
 		<nome>Maria</nome>
 		<senha>senha01</senha>
+	</user>
+	<user>
+		<id>02</id>
+		<nome>joao</nome>
+		<senha>senha01</senha>
+	</user>
 </usuarios> 
