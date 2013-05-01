@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<usuarios>
+		<id>01</id>
+		<nome>Maria</nome>
+		<senha>senha01</senha>
+</usuarios> 

@@ -1,38 +1,38 @@
 package chat;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.Dom4JDriver;
 
+import java.io.*;
+ 
 public class CarregaXML {
-
-    public static void main(String[] args) {   
-    	lerXML();
-    }
-    
-    private static void lerXML() {
+	
+	static String file = "C:\\projectAPS\\APS5\\APS_5_Semestre\\resources\\Usuario.xml";
+	
+	
+	public static void main(String[] args) {
+		lerXML();
+	}
+	
+	private static void lerXML() {
         try {
+        	
             XStream xStream = new XStream(new Dom4JDriver());
-            xStream.alias("Usuario", ArrayList.class);
+            xStream.alias("usuarios", Usuario.class);
+            //xStream.alias("usuario", Usuario.class);
             xStream.processAnnotations(Usuario.class);
  
-            BufferedReader input = new BufferedReader(new FileReader("user.xml"));
-            ArrayList<Usuario> usuarios = (ArrayList) xStream.fromXML(input);
+            BufferedReader input = new BufferedReader(new FileReader(file));
+            Usuario usuarios;
+            //transformar isso num list
+            usuarios = (Usuario) xStream.fromXML(input);
             input.close();
  
-            for (Usuario usuario : usuarios) {
-                System.out.println("usuario: " + usuario.getNomeUsuario() + " - " + usuario.getIdUsuario());
-            }
- 
+            System.out.println("NOME: " + usuarios.getNomeUsuario() + " - ID: " + usuarios.getIdUsuario() + " - Senha: " + usuarios.getSenha());
+            
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    
-
-}  
+}
