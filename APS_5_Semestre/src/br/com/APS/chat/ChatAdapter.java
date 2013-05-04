@@ -21,11 +21,11 @@ public abstract class ChatAdapter extends JFrame {
 	
 	protected String message = StringUtils.EMPTY; 
 	
-	protected JTextField enterField; 
+	protected ObjectInputStream inputStream; 
 	
 	protected ObjectOutputStream output; 
 
-	protected ObjectInputStream input; 
+	protected JTextField enterField; 
 	
 	protected JTextArea displayArea;
 	
@@ -39,6 +39,7 @@ public abstract class ChatAdapter extends JFrame {
 		super(frameName);
 		this.base = user;
 		enterField = new JTextField(); 
+		enterField.setSize(400, 200);
 		this.displayArea = new JTextArea(); 
 		this.bundle = new BundleUtil(bundleName);
 	}
@@ -81,7 +82,7 @@ public abstract class ChatAdapter extends JFrame {
 		setTextFieldEditable(false);
 		try {
 			output.close(); 
-			input.close(); 
+			inputStream.close(); 
 			connection.close(); 
 		} catch (IOException ioException) {
 			enviarMensagem(bundle.getMessage("falhaConexao"));
@@ -94,7 +95,7 @@ public abstract class ChatAdapter extends JFrame {
 		{
 			try
 			{
-				message = (String) input.readObject(); 
+				message = (String) inputStream.readObject(); 
 				enviarMensagem("\n" + message); 
 			} catch (ClassNotFoundException classNotFoundException) {
 				enviarMensagem(bundle.getMessage("unknowProjectType"));

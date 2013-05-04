@@ -18,15 +18,15 @@ public class FormsJanelaMensagem extends JFrame {
 
 	private static final long serialVersionUID = -524050008764904521L;
 
-	private JButton jbEnviar;
-	private JLabel jlNomePessoa;
-	private JLabel jlIP;
-	private JMenu jmExtras;
-	private JMenuBar jmbMenuConversa;
-	private JScrollPane jScroll1;
-	private JScrollPane jScroll2;
-	private JTextArea jtaConversa;
-	private JTextArea jtaEscrever;
+	private JButton botaoEnviar;
+	private JLabel labelNomePessoa;
+	private JLabel labelIP;
+	private JMenu menuExtras;
+	private JMenuBar barraDeMenu;
+	private JScrollPane scrollMensagensEnviadas;
+	private JScrollPane scrollEscrevendoMensagens;
+	private JTextArea textoConversa;
+	private JTextArea inputDeMensagem;
 
 	public FormsJanelaMensagem() {
 		initComponents();
@@ -34,43 +34,43 @@ public class FormsJanelaMensagem extends JFrame {
 
 	private void initComponents() {
 
-		jlNomePessoa = new JLabel("Nome da pessoa");
-		jlIP = new JLabel("IP:");
-		jScroll1 = new JScrollPane();
-		jtaConversa = new JTextArea();
-		jScroll2 = new JScrollPane();
-		jtaEscrever = new JTextArea();
-		jbEnviar = new JButton("Enviar");
-		jmbMenuConversa = new JMenuBar();
-		jmExtras = new JMenu("Extras");
+		labelNomePessoa = new JLabel("Nome da pessoa");
+		labelIP = new JLabel("IP:");
+		scrollMensagensEnviadas = new JScrollPane();
+		textoConversa = new JTextArea();
+		scrollEscrevendoMensagens = new JScrollPane();
+		inputDeMensagem = new JTextArea();
+		botaoEnviar = new JButton("Enviar");
+		barraDeMenu = new JMenuBar();
+		menuExtras = new JMenu("Extras");
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLayout(null);
 		setSize(600, 420);
 		setResizable(false);
 
-		add(jlNomePessoa);
-		add(jlIP);
-		add(jScroll1);
-		add(jScroll2);
-		add(jbEnviar);
+		add(labelNomePessoa);
+		add(labelIP);
+		add(scrollMensagensEnviadas);
+		add(scrollEscrevendoMensagens);
+		add(botaoEnviar);
 
-		jlNomePessoa.setBounds(20, 10, 80, 14);
-		jlIP.setBounds(20, 30, 100, 14);
-		jScroll1.setBounds(10, 60, 470, 200);
-		jScroll2.setBounds(10, 270, 470, 70);
-		jbEnviar.setBounds(490, 290, 90, 50);
+		labelNomePessoa.setBounds(20, 10, 80, 14);
+		labelIP.setBounds(20, 30, 100, 14);
+		scrollMensagensEnviadas.setBounds(10, 60, 470, 200);
+		scrollEscrevendoMensagens.setBounds(10, 270, 470, 70);
+		botaoEnviar.setBounds(490, 290, 90, 50);
 
 		// TextAreas
-		jtaConversa.setColumns(20);
-		jtaConversa.setRows(5);
-		jScroll1.setViewportView(jtaConversa);
-		jtaEscrever.setColumns(20);
-		jtaEscrever.setRows(5);
-		jScroll2.setViewportView(jtaEscrever);
+		textoConversa.setColumns(20);
+		textoConversa.setRows(5);
+		scrollMensagensEnviadas.setViewportView(textoConversa);
+		inputDeMensagem.setColumns(20);
+		inputDeMensagem.setRows(5);
+		scrollEscrevendoMensagens.setViewportView(inputDeMensagem);
 
-		jmbMenuConversa.add(jmExtras);
-		setJMenuBar(jmbMenuConversa);
+		barraDeMenu.add(menuExtras);
+		setJMenuBar(barraDeMenu);
 	}
 
 	public static void main(String args[]) {

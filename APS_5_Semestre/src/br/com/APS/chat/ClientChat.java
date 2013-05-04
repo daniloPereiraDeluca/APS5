@@ -43,7 +43,7 @@ public class ClientChat extends ChatAdapter implements Serializable{
 
 		add(new JScrollPane(displayArea), BorderLayout.CENTER);
 
-		setSize(300, 150);
+		setSize(600, 450);
 		setVisible(true); 
 	}
 
@@ -86,7 +86,7 @@ public class ClientChat extends ChatAdapter implements Serializable{
 		output = new ObjectOutputStream(connection.getOutputStream());
 		output.flush(); 
 
-		input = new ObjectInputStream(connection.getInputStream());
+		inputStream = new ObjectInputStream(connection.getInputStream());
 
 		enviarMensagem(bundle.getMessage("conexaoValidada"));
 	}

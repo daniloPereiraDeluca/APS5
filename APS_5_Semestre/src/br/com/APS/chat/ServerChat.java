@@ -37,11 +37,11 @@ public class ServerChat extends ChatAdapter implements Serializable{
 			} 
 		); 
 
-		add(enterField, BorderLayout.NORTH);
 
 		add(new JScrollPane(displayArea), BorderLayout.CENTER);
-
-		setSize(300, 150);
+		add(enterField, BorderLayout.SOUTH);
+		
+		setSize(600, 450);
 		setVisible(true); 
 	} 
 
@@ -80,7 +80,7 @@ public class ServerChat extends ChatAdapter implements Serializable{
 		output = new ObjectOutputStream(connection.getOutputStream());
 		output.flush(); 
 
-		input = new ObjectInputStream(connection.getInputStream());
+		inputStream = new ObjectInputStream(connection.getInputStream());
 
 		enviarMensagem(bundle.getMessage("conexaoValidada"));
 	} 
