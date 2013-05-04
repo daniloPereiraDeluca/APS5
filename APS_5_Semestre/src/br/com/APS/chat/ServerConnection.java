@@ -2,8 +2,6 @@ package br.com.APS.chat;
 
 import java.io.Serializable;
 
-import javax.swing.JFrame;
-
 import br.com.APS.data.ServerDTO;
 import br.com.APS.impl.service.ServerServiceImpl;
 import br.com.APS.service.ServerService;
@@ -19,7 +17,7 @@ public class ServerConnection implements Serializable{
 		server = getServerService().getServer();
 		
 		ServerChat application = new ServerChat(server);
-		application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		application.conectarBatePapo();
 	}
 

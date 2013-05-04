@@ -3,8 +3,6 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import javax.swing.JFrame;
-
 import br.com.APS.data.UsuarioDTO;
 import br.com.APS.impl.service.UsuarioServiceImpl;
 import br.com.APS.service.UsuarioService;
@@ -19,10 +17,8 @@ public class ClientConnection implements Serializable{
 			
 			usuario = getUsuarioService().buscarQualquerUsuario();
 			
-			ClientChat application;
-			application = new ClientChat(InetAddress.getLocalHost(), usuario);
+			ClientChat application = new ClientChat(InetAddress.getLocalHost(), usuario);
 
-			application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			application.conectarBatePapo();
 	}
 

@@ -1,15 +1,11 @@
 package br.com.APS.chat;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
-
-import javax.swing.JScrollPane;
 
 import br.com.APS.data.ServerDTO;
 
@@ -18,9 +14,9 @@ public class ServerChat extends ChatAdapter implements Serializable{
 	
 	private static final long serialVersionUID = 9208182619020493694L;
 
-	private ServerSocket server; // server socket
+	private ServerSocket server; 
 	
-	private int counter = 1; // counter of number of connections
+	private int counter = 1; 
 
 	private ServerDTO severUser;
 	
@@ -28,21 +24,27 @@ public class ServerChat extends ChatAdapter implements Serializable{
 		super("Server", serverUser, "messages");
 
 		this.severUser = serverUser;
-		enterField.setEditable(false);
-		enterField.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent event) {
-					sendData(event.getActionCommand());
-					enterField.setText("");
-				} 
-			} 
-		); 
+		frame.getCampoDeMensagem().setEditable(false);
+		quandoPressionarEnterOuEnviar();
 
+	}
 
-		add(new JScrollPane(displayArea), BorderLayout.CENTER);
-		add(enterField, BorderLayout.SOUTH);
+	public void quandoPressionarEnterOuEnviar() {
+		frame.getCampoDeMensagem().addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyReleased(KeyEvent evento) {
+					if (evento.getKeyCode() == KeyEvent.VK_ENTER) {
+					enviarMensagem(frame.getCampoDeMensagem().getText());
+					frame.getCampoDeMensagem().setText("");
+				}
+			}
+		});
 		
-		setSize(600, 450);
-		setVisible(true); 
+		frame.getBotaoEnviar().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				enviarMensagem(frame.getCampoDeMensagem().getText());
+				frame.getCampoDeMensagem().setText("");
+			}
+		});
 	} 
 
 	@Override
@@ -57,7 +59,7 @@ public class ServerChat extends ChatAdapter implements Serializable{
 					inicializarOutputStream(); 
 					verificaConexao(); 
 				} catch (EOFException eofException) {
-					enviarMensagem(bundle.getMessage("conexaoTerminada"));
+					adicionaMensagemAoDisplay(bundle.getMessage("conexaoTerminada"));
 				} finally {
 					closeConnection(); 
 					++counter;
@@ -70,9 +72,9 @@ public class ServerChat extends ChatAdapter implements Serializable{
 	} 
 
 	private void esperandoConexaoDoCliente() throws IOException {
-		enviarMensagem(bundle.getMessage("esperandoConexao"));
+		adicionaMensagemAoDisplay(bundle.getMessage("esperandoConexao"));
 		connection = server.accept(); 
-		enviarMensagem(bundle.getMessage("totalConexao") + counter + ", conectadas a: "
+		adicionaMensagemAoDisplay(bundle.getMessage("totalConexao") + counter + ", conectadas a: "
 				+ connection.getInetAddress().getHostName());
 	}
 
@@ -82,7 +84,7 @@ public class ServerChat extends ChatAdapter implements Serializable{
 
 		inputStream = new ObjectInputStream(connection.getInputStream());
 
-		enviarMensagem(bundle.getMessage("conexaoValidada"));
+		adicionaMensagemAoDisplay(bundle.getMessage("conexaoValidada"));
 	} 
 }
 
