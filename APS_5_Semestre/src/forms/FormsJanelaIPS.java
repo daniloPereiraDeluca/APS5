@@ -1,7 +1,4 @@
 package forms;
-import java.awt.EventQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JFrame;
@@ -12,7 +9,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 public class FormsJanelaIPS extends JFrame {
@@ -54,8 +50,8 @@ public class FormsJanelaIPS extends JFrame {
         add(jlIP);
         add(jScroll);
         
-        jlNome		.setBounds(10, 30, 34, 14);
-        jlIP		.setBounds(10, 60, 14, 14);
+        jlNome.setBounds(10, 30, 50, 14);
+        jlIP.setBounds(10, 60, 14, 14);
         jScroll.setBounds(10, 80, 240, 390);
 
         jlistIPs.setModel(new AbstractListModel() {
@@ -71,34 +67,12 @@ public class FormsJanelaIPS extends JFrame {
         jmbMenu.add(jmArquivo);
         jmbMenu.add(jmSobre);
         setJMenuBar(jmbMenu);
-
     }                     
 
 
     public static void main(String args[]) {
-   
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FormsJanelaIPS.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(FormsJanelaIPS.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(FormsJanelaIPS.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(FormsJanelaIPS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormsJanelaIPS().setVisible(true);
-            }
-        });
+    	FormsJanelaIPS formJI = new FormsJanelaIPS();
+    	formJI.setVisible(true);
     }
                 
 }

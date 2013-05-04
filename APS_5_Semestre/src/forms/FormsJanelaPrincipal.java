@@ -1,7 +1,4 @@
 package forms;
-import java.awt.EventQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
+
 
 public class FormsJanelaPrincipal extends JFrame {
 
@@ -59,13 +56,13 @@ public class FormsJanelaPrincipal extends JFrame {
         setSize(270, 600);
         setResizable(false);
 
-        jlLogin		.setBounds(20, 100, 32, 14);
-        jlSenha		.setBounds(20, 130, 34, 14);
-        jtfLogin	.setBounds(80, 100, 130, 20);
-        jtfSenha	.setBounds(80, 130, 130, 20);
-        jbEntrar	.setBounds(110, 180, 63, 23);
-        ljEvtSenhaInconrreta		.setBounds(80, 220, 120, 14);
-        ljEvtConexaoErro		.setBounds(70, 260, 140, 14);
+        jlLogin	.setBounds(20, 100, 50, 14);
+        jlSenha	.setBounds(20, 130, 50, 14);
+        jtfLogin.setBounds(80, 100, 130, 20);
+        jtfSenha.setBounds(80, 130, 130, 20);
+        jbEntrar.setBounds(110, 180, 70, 23);
+        ljEvtSenhaInconrreta.setBounds(80, 220, 150, 14);
+        ljEvtConexaoErro.setBounds(70, 260, 160, 14);
         
         add(jlLogin);
         add(jlSenha);
@@ -86,27 +83,7 @@ public class FormsJanelaPrincipal extends JFrame {
     }                       
 
     public static void main(String args[]) {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FormsJanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(FormsJanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(FormsJanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(FormsJanelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormsJanelaPrincipal().setVisible(true);
-            }
-        });
+    	FormsJanelaPrincipal formJP = new FormsJanelaPrincipal();
+    	formJP.setVisible(true);
     }                 
 }
