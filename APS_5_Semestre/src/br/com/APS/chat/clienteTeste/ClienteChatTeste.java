@@ -1,15 +1,15 @@
 package br.com.APS.chat.clienteTeste;
 
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import br.com.APS.chat.to.MensagemTO;
 import br.com.APS.data.ServerDTO;
@@ -30,10 +30,12 @@ public class ClienteChatTeste extends ClienteChatAdapter{
 		actions();
 		
 		try {
-			this.conexao =  new Socket(InetAddress.getLocalHost(), this.serverDTO.getPortaConexao());
-			getStreams();
-			verificaConexao();
-			this.start();
+			while(true){
+				this.conexao =  new Socket(InetAddress.getLocalHost(), this.serverDTO.getPortaConexao());
+				getStreams();
+				verificaConexao();
+			}
+//			this.start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -43,27 +45,27 @@ public class ClienteChatTeste extends ClienteChatAdapter{
 
 	public void run()
     {
-        try {
-            //recebe mensagens de outro cliente através do servidor
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(inputStream));
-            //cria variavel de mensagem
-            String msg;
-            while (true)
-            {
-                // pega o que o servidor enviou
-                msg = entrada.readLine();
-                //se a mensagem contiver dados, passa pelo if, 
-                //caso contrario cai no break e encerra a conexao
-                if (msg == null) {
-                    System.out.println("Conexão encerrada!");
-                    System.exit(0);
-                }
-                //imprime a mensagem recebida
-                frameDeTrocaDeMensagens.getMensagensEnviadas().append(msg);
-            }
-        } catch (IOException e) {
-            System.out.println("Ocorreu uma Falha... .. ." + " IOException: " + e);
-        }
+//        try {
+//            //recebe mensagens de outro cliente através do servidor
+//            BufferedReader entrada = new BufferedReader(new InputStreamReader(inputStream));
+//            //cria variavel de mensagem
+//            String msg;
+//            while (true)
+//            {
+//                // pega o que o servidor enviou
+//                msg = entrada.readLine();
+//                //se a mensagem contiver dados, passa pelo if, 
+//                //caso contrario cai no break e encerra a conexao
+//                if (msg == null) {
+//                    System.out.println("Conexão encerrada!");
+//                    System.exit(0);
+//                }
+//                //imprime a mensagem recebida
+//                frameDeTrocaDeMensagens.getMensagensEnviadas().append(msg);
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Ocorreu uma Falha... .. ." + " IOException: " + e);
+//        }
     }
 	
 	private void actions() {
@@ -76,6 +78,7 @@ public class ClienteChatTeste extends ClienteChatAdapter{
 		output.flush(); 
 
 		inputStream = new ObjectInputStream(conexao.getInputStream());
+		JOptionPane.showMessageDialog(frameDeTrocaDeMensagens, "foi");
 
 		adicionaMensagemAoDisplay(bundle.getMessage("conexaoValidada"));
 	}
