@@ -16,7 +16,7 @@ public class ServerServiceImpl implements ServerService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ServerDTO getServer() {
+	public ServerDTO getServidor() {
 		File serverFile = new File(RESOURCES_SERVIDOR_XML);
 		ServerDTO server = new ServerDTO();
 		XMLReader reader = new ServerXMLReader(serverFile, new ServerDTO().getKeys());
@@ -24,7 +24,8 @@ public class ServerServiceImpl implements ServerService{
 		
 		if (!dadosDoXML.isEmpty()){
 			ServerDTO serverDados = dadosDoXML.get(0);
-			server = new ServerDTO(serverDados.getNome(), serverDados.getId(), serverDados.getPortaConexao());
+			server = new ServerDTO(serverDados.getNome(), serverDados.getId(),
+					serverDados.getPortaConexao());
 		}
 		return server;
 	}

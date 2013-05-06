@@ -14,7 +14,7 @@ public class ServerConnection implements Serializable{
 	
 	public static void main(String[] args) {
 		
-		server = getServerService().getServer();
+		server = getServerService().getServidor();
 		
 		ServerChat application = new ServerChat(server);
 //		application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

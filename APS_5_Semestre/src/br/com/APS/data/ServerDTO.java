@@ -18,7 +18,7 @@ public class ServerDTO implements BaseDTO,Serializable{
 	private List<MensagemTO> mensagens = new ArrayList<MensagemTO>();
 	
 	private Integer portaConexao;
-
+	
 	public ServerDTO(String nome, Integer id, Integer port) {
 		super();
 		this.nome = nome;

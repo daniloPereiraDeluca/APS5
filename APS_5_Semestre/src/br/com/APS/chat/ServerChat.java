@@ -25,11 +25,11 @@ public class ServerChat extends ChatAdapter implements Serializable{
 
 		this.severUser = serverUser;
 		frame.getCampoDeMensagem().setEditable(false);
-		quandoPressionarEnterOuEnviar();
+		quandoPressionarBotaoConectar();
 
 	}
 
-	public void quandoPressionarEnterOuEnviar() {
+	public void quandoPressionarBotaoConectar() {
 		frame.getCampoDeMensagem().addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyReleased(KeyEvent evento) {
 					if (evento.getKeyCode() == KeyEvent.VK_ENTER) {

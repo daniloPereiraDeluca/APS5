@@ -29,15 +29,15 @@ public class ClientChat extends ChatAdapter implements Serializable{
 
 	public ClientChat(InetAddress inetAddress, UsuarioDTO user) throws UnknownHostException {
 		super("ClienteSide", user,"messages");
-		this.serverConexao = getServerService().getServer();
+		this.serverConexao = getServerService().getServidor();
 		this.user = user;
 		this.inetAddress = inetAddress;
 		frame.getCampoDeMensagem().setEditable(false);
-		quandoPressionarEnterOuEnviar();
+		quandoPressionarBotaoConectar();
 		
 	}
 
-	public void quandoPressionarEnterOuEnviar() {
+	public void quandoPressionarBotaoConectar() {
 		
 		frame.getCampoDeMensagem().addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyReleased(KeyEvent evento) {
@@ -69,8 +69,6 @@ public class ClientChat extends ChatAdapter implements Serializable{
 		}
 		catch (IOException ioException) {
 			adicionaMensagemAoDisplay(bundle.getMessage("falhaConexao"));
-		} finally {
-			closeConnection(); 
 		} 
 	} 
 

@@ -13,7 +13,7 @@ import br.com.APS.frames.FrameDeTrocaDeMensagens;
 import br.com.APS.utils.BundleUtil;
 
 
-public abstract class ChatAdapter {
+public abstract class ChatAdapter extends Thread{
 
 	protected String message = StringUtils.EMPTY; 
 	
@@ -33,11 +33,11 @@ public abstract class ChatAdapter {
 		frame = new FrameDeTrocaDeMensagens(frameName,bundleName);
 		this.bundle = new BundleUtil(bundleName);
 		this.base = user;
-	}		 
-
+	}
+	
 	public abstract void conectarBatePapo();
 	
-	public abstract void quandoPressionarEnterOuEnviar();
+	public abstract void quandoPressionarBotaoConectar();
 	
 	protected void enviarMensagem(String message){
 		try 

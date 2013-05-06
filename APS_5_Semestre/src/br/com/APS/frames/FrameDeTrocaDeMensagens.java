@@ -28,7 +28,6 @@ public class FrameDeTrocaDeMensagens extends JFrame {
 	
 	private BundleUtil bundle;
 
-
 	public FrameDeTrocaDeMensagens(String chatName, String bundleName)
 			throws HeadlessException {
 		super(chatName);
