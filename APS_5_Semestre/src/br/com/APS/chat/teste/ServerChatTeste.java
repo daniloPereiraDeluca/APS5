@@ -34,8 +34,7 @@ public class ServerChatTeste extends ServerAdapter implements Serializable{
 		quandoPressionarBotaoDesconectar();
 	}
 
-	public void run() {
-		
+	public void run() {//quando dou theard.start() ele executa isso
 		frame.getBotaoConectar().setEnabled(false);
 		frame.getBotaoDesconectar().setEnabled(true);
     }

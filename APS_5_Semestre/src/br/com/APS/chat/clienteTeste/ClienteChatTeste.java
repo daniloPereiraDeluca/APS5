@@ -32,10 +32,8 @@ public class ClienteChatTeste extends ClienteChatAdapter{
 		try {
 			this.conexao =  new Socket(InetAddress.getLocalHost(), this.serverDTO.getPortaConexao());
 			getStreams();
-			output.writeObject(usuario.getId());
-			output.flush(); 
+			verificaConexao();
 			this.start();
-//			verificaConexao();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
