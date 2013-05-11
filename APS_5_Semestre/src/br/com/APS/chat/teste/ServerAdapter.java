@@ -22,6 +22,9 @@ public abstract class ServerAdapter  extends Thread {
 	
 	protected ServerDTO server;
 	
+	public ServerAdapter() {
+		
+	}
 	public ServerAdapter(String frameName, ServerDTO server, String bundleName) {
 		frame = new FrameConectarServidor(frameName,bundleName);
 		this.bundle = new BundleUtil(bundleName);

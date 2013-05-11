@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang.StringUtils;
@@ -36,8 +37,10 @@ public abstract class ClienteChatAdapter extends Thread {
 	protected void enviarMensagem(String message){
 		try 
 		{
+			JOptionPane.showInputDialog("teste1");
 			output.writeObject(this.baseUser.getNome() + ">>> " + message);
 			output.flush(); 
+			JOptionPane.showInputDialog("teste2");
 			adicionaMensagemAoDisplay("\n" + this.baseUser.getNome() + ">>> " + message);
 		} catch (IOException ioException) {
 			adicionaMensagemAoDisplay(bundle.getMessage("erroAoEnviarMensagem"));
@@ -60,7 +63,9 @@ public abstract class ClienteChatAdapter extends Thread {
 		{
 			try
 			{
+				JOptionPane.showMessageDialog(frameDeTrocaDeMensagens, "?");
 				message = (String) inputStream.readObject(); 
+				JOptionPane.showMessageDialog(frameDeTrocaDeMensagens, "verificaConexao");
 				adicionaMensagemAoDisplay("\n" + message); 
 			} catch (ClassNotFoundException classNotFoundException) {
 				adicionaMensagemAoDisplay(bundle.getMessage("unknowProjectType"));

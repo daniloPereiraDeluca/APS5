@@ -1,8 +1,14 @@
 package br.com.APS.chat.teste;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -21,6 +27,8 @@ public class ServerChatTeste extends ServerAdapter implements Serializable{
 	
 	private Socket conexao;
 	
+	private static Set<ObjectOutputStream> lista = new HashSet<ObjectOutputStream>();
+	
 	public ServerChatTeste(ServerDTO serverUser) throws InterruptedException {
 		super("Server", serverUser, "messages");
 		frame.setVisible(true);
@@ -28,16 +36,40 @@ public class ServerChatTeste extends ServerAdapter implements Serializable{
 		this.serverUser = serverUser;
 		actions();
 	}
+	public ServerChatTeste(Socket conexao, ServerDTO serverUser) throws InterruptedException {
+		super();
+		this.conexao = conexao;
+		try {
+			output =  new ObjectOutputStream(conexao.getOutputStream());
+			output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		lista.add(output);
+		JOptionPane.showInputDialog(lista);
+	}
 
 	private void actions() {
 		quandoPressionarBotaoConectar();
 		quandoPressionarBotaoDesconectar();
 	}
 
-	public void run() {
-		
-		frame.getBotaoConectar().setEnabled(false);
-		frame.getBotaoDesconectar().setEnabled(true);
+	public void run() {//quando dou theard.start() ele executa isso
+        try {
+        	BufferedReader entrada = new BufferedReader(new InputStreamReader(this.conexao.getInputStream()));
+        	Object readObject = new ObjectInputStream(conexao.getInputStream()).readObject();
+//			output.writeObject(readObject);
+//			output.flush();
+        	
+			for (ObjectOutputStream out : lista) {
+        		out.writeObject(readObject);
+        		out.flush();
+			}
+			
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+			
     }
 	
 	@Override
@@ -47,10 +79,15 @@ public class ServerChatTeste extends ServerAdapter implements Serializable{
 		JOptionPane.showMessageDialog(frame, bundle.getMessage("aguardandoConexaoAoServidor"));
 		try {
 			server = new ServerSocket(serverUser.getPortaConexao());
-			conexao = server.accept();
-	        this.start();
-	        JOptionPane.showMessageDialog(frame, bundle.getMessage("conexaoEstabelecida"));
-		} catch (IOException e) {
+			while(true){
+				conexao = server.accept();
+				frame.getBotaoConectar().setEnabled(false);
+				frame.getBotaoDesconectar().setEnabled(true);
+				Thread t = new ServerChatTeste(conexao, serverUser);
+				t.start();
+				JOptionPane.showMessageDialog(frame, bundle.getMessage("conexaoEstabelecida"));
+			}
+		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
