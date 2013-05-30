@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<server>
+	<id>123456</id>
+	<nome>ServerAPS</nome>
+	<port>7777</port>
+</server>
